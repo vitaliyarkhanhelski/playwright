@@ -23,6 +23,11 @@ test('createNewAccount', async ({page }) => {
   let sfUrl = await getUrl();
 
   await page.goto(sfUrl);
+  await page.getByRole('button', { name: 'App Launcher' }).click();
+  await page.getByRole('option', { name: 'Sales' }).click();
+
+  await page.waitForLoadState('networkidle');
+
   await page.getByRole('link', { name: 'Accounts' }).click();
   await page.getByRole('button', { name: 'New' }).click();
 
