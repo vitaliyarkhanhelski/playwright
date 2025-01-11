@@ -90,8 +90,11 @@ test('test Experience Cloud', async ({ page }) => {
   await page.getByPlaceholder('Password').fill(lastName);
   // await page.waitForTimeout(1000);
   await page.getByRole('button', { name: 'Log in' }).click();
+  
+  await page.waitForLoadState('networkidle');
 
   let url = new URL(page.url());
+  log('url: ' + url);
   const urlParams = new URLSearchParams(url.search);
   console.log('urlParams: ' + urlParams);
   expect(urlParams.has('apexHours'));
@@ -100,6 +103,8 @@ test('test Experience Cloud', async ({ page }) => {
   let startUrl = urlParams.get('startURL');
   console.log('startUrl: ' + startUrl);
   await page.getByRole('link', { name: 'Forgot your password?' }).click();
+  await page.waitForLoadState('networkidle');
+  expect(page.url()).toContain('ForgotPassword');
   await page.getByPlaceholder('Username').click();
   await page.getByPlaceholder('Username').fill('Hello World');
   await page.getByPlaceholder('Username').press('Enter');
