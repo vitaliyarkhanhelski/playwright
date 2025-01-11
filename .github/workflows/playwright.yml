@@ -6,6 +6,8 @@ on:
   # pull_request:
   #   branches: [main, master]
   workflow_dispatch:
+  schedule:
+    - cron: "0 10 15 * *" # every day at 3am
 
 env:
   SFDX_HIDE_RELEASE_NOTES: true
