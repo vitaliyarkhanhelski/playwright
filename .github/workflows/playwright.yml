@@ -1,6 +1,7 @@
 name: Playwright Tests
 
 on:
+  # event driven:
   # push:
   #   branches: [main]
   # pull_request:
