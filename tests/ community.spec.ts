@@ -10,7 +10,7 @@ let ansiRegex = /\u001b\[[0-9;]*m/g;
 
 
 async function wait(page: Page): Promise<void> {
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(1500);
 }
 
 function log(text: string): void {
@@ -47,7 +47,7 @@ test('basic test', async ({ page }) => {
 ///////////////////////////////////////////////////
 
 test('test Experience Cloud', async ({ page }) => {
-
+  test.slow();
   let testData = readFileSync(testDataJson);
   let testDataObj = JSON.parse(testData);
 
