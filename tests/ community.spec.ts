@@ -3,7 +3,7 @@ const { readFileSync } = require('fs');
 const {promisify} = require('util');
 const exec = promisify(require('child_process').exec);
 
-let testDataJson = 'tests/register-business.json';
+let testDataJson = 'data/register-business.json';
 let orgName = 'experience';
 let siteName = 'Apex_Hours';
 let ansiRegex = /\u001b\[[0-9;]*m/g;
