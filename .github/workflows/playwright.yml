@@ -33,9 +33,9 @@ jobs:
       - name: Authenticate into SF Org
         run: |
           # echo "${{ secrets.SF_TRACKING01_URL }}" | sf org:login:sfdx-url -a ${SFDX_ORG_NAME} --sfdx-url-stdin -s
-          echo "force://3MVG9k02hQhyUgQDPlokz_.ykKn4wHP.QBWNuRlLI.fqu8Z9fv.G6Q3P6dS5cOlN0qtqT2dxM4XLZKzfcWQeC:31CFB05A6BE3F584865CBF4E760EEE6BC002E64BC6F6DCADCFC8452CCC4D36A4:5Aep861t2K6ODXFXkE2uPPl4ACdULbulY59mGBhZvMJPe_8E8D3Y0ep2Yt0MUkObKZlPNOsgdmZDNKsjlgLp5Xh@empathetic-badger-42gpi4-dev-ed.trailblaze.my.salesforce.com" | sf org:login:sfdx-url -a experience --sfdx-url-stdin -s
-          # sf org:display -o ${SFDX_ORG_NAME}
-          sf org:display -o experience
+          echo "force://3MVG9k02hQhyUgQDPlokz_.ykKn4wHP.QBWNuRlLI.fqu8Z9fv.G6Q3P6dS5cOlN0qtqT2dxM4XLZKzfcWQeC:31CFB05A6BE3F584865CBF4E760EEE6BC002E64BC6F6DCADCFC8452CCC4D36A4:5Aep861t2K6ODXFXkE2uPPl4ACdULbulY59mGBhZvMJPe_8E8D3Y0ep2Yt0MUkObKZlPNOsgdmZDNKsjlgLp5Xh@empathetic-badger-42gpi4-dev-ed.trailblaze.my.salesforce.com" | sf org:login:sfdx-url -a ${SFDX_ORG_NAME} --sfdx-url-stdin -s
+          sf org:display -o ${SFDX_ORG_NAME}
+          # sf org:display -o experience
 
       - name: Install dependencies
         run: npm ci --force
