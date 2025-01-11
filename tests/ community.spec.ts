@@ -109,6 +109,11 @@ test('test Experience Cloud', async ({ page }) => {
   await page.getByPlaceholder('Username').fill('Hello World');
   await page.getByPlaceholder('Username').press('Enter');
   await expect(page.locator('#centerPanel')).toContainText('PASSWORD RESET');
+  await wait(page);
+  await page.getByRole('link', { name: 'Cancel' }).click();
+  await page.waitForLoadState('networkidle');
+  await wait(page);
+  await expect(page.getByRole('button', { name: 'Log in' })).toBeVisible();
 });
 
 /////////////////////////////////////////////////// methods

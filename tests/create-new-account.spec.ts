@@ -32,6 +32,7 @@ test('createNewAccount', async ({page }) => {
   await page.getByRole('button', { name: 'New' }).click();
 
   await populateNewAccountData(page);
+  await wait(page);
 
   await page.getByRole('button', { name: 'Save', exact: true }).click();
 
