@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-const { readFileSync } = require('fs');
-const {promisify} = require('util');
+import { readFileSync } from 'fs';
+import { promisify } from 'util';
 const exec = promisify(require('child_process').exec);
 
 let testDataJson = 'data/register-business.json';

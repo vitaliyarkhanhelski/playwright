@@ -16,6 +16,12 @@ env:
   SFDX_DATA_DIR: "/home/runner/sfdx-plugins"
   SFDX_ORG_NAME: "experience"
 
+  HUB_USERNAME: ${{ secrets.EXPERIENCE_HUB_USERNAME }}
+  INSTANCE_URL: "https://login.salesforce.com"
+  CONSUMER_KEY: ${{ secrets.EXPERIENCE_CONSUMER_KEY }}
+  CERT_KEY: ${{ secrets.EXPERIENCE_CERT_KEY }}
+  WAIT_TIME_MINS: 60
+
 jobs:
   run-tests:
     timeout-minutes: 60
@@ -30,14 +36,26 @@ jobs:
       - name: Setup SF CLI
         run: |
           pwd
-          mkdir -p ${SFDX_DATA_DIR} && chmod 777 ${SFDX_DATA_DIR}
-          npm install @salesforce/cli -g
-          echo y | sfdx plugins:install sfdx-git-delta
+          # mkdir -p ${SFDX_DATA_DIR} && chmod 777 ${SFDX_DATA_DIR}
+          npm install @salesforce/cli --global
+          sf update stable
+          sf version
+          sf plugins
+          # npm install @salesforce/cli -g
+          # echo y | sfdx plugins:install sfdx-git-delta
 
       - name: Authenticate into SF Org
         run: |
-          echo "${{ secrets.SFDX_AUTH_URL_EXPERIENCE }}" | sf org:login:sfdx-url -a ${SFDX_ORG_NAME} --sfdx-url-stdin -s
-          sf org:display -o ${SFDX_ORG_NAME}
+          # echo "${{ secrets.SFDX_AUTH_URL_EXPERIENCE }}" | sf org:login:sfdx-url -a ${SFDX_ORG_NAME} --sfdx-url-stdin -s
+          # sf org:display -o ${SFDX_ORG_NAME}
+          echo "$CERT_KEY" > server.key
+                  sf org login jwt \
+                    --client-id $CONSUMER_KEY \
+                    --username $HUB_USERNAME \
+                    --jwt-key-file server.key \
+                    --set-default-dev-hub \
+                    --instance-url $INSTANCE_URL \
+                    --alias ${SFDX_ORG_NAME}
 
       - name: Install dependencies
         run: npm ci --force
@@ -46,7 +64,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npx playwright test tests/experience_jwt.spec.ts
 
       - uses: actions/upload-artifact@v4
         if: always()

@@ -5,3 +5,4 @@ node_modules/
 /playwright/.cache/
 sfdx-auth-url.json
 .DS_Store
+/cert
